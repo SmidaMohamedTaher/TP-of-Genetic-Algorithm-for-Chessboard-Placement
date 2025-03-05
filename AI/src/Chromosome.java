@@ -29,9 +29,9 @@ public class Chromosome {
         int x ;
         for(int i=0; i<n; i++){
             x = ThreadLocalRandom.current().nextInt(0, 32);
-            if (table[i].getCell() == 'E' ) {
-                table[i].setCell(car);
-                attack(i,table[i]);
+            if (table[x].getCell() == 'E' ) {
+                table[x].setCell(car);
+                attack(x,table[x]);
             }
             else{
                 i-- ;
@@ -40,9 +40,9 @@ public class Chromosome {
 
         for (int i=0; i<num - n; i++){
             x = ThreadLocalRandom.current().nextInt(32, 64);
-            if (table[i].getCell() == 'E' ) {
-                table[i].setCell(car);
-                attack(i,table[i]);
+            if (table[x].getCell() == 'E' ) {
+                table[x].setCell(car);
+                attack(x,table[x]);
             }
             else{
                 i-- ;
@@ -54,6 +54,7 @@ public class Chromosome {
         if (attacker.getCell() == 'Q'){
             attackUpDown(attacker,indexOfAttacore);
             attackDiagonally(attacker,indexOfAttacore);
+            attackInLine(attacker,indexOfAttacore);
         }else{
             if (attacker.getCell() == 'R'){
                 attackUpDown(attacker,indexOfAttacore);
@@ -75,7 +76,7 @@ public class Chromosome {
      * this function to find the cells that this piece (attacore) can attack it (up and down)
      */
     public void attackUpDown(Cell attacore,int x){
-        for (int i = x-8; i > 0; i-=8) {
+        for (int i = x-8; i >= 0; i-=8) {
             this.table[i].setAttacor(attacore);
         }
         for (int i = x+8; i < 64; i+=8) {
@@ -90,7 +91,7 @@ public class Chromosome {
      * this function to find the cells that this piece (attacore) can attack it (diagonally)
      */
     public void attackDiagonally(Cell attacore,int x){
-        for (int i = x-7; i > 0; i-=7) {
+        for (int i = x-7; i >= 0; i-=7) {
             this.table[i].setAttacor(attacore);
         }
 
@@ -110,13 +111,13 @@ public class Chromosome {
 
     public void attackInLine(Cell attacore , int x){
         if (x%8 == 0){
-            while((x+1)%8 != 0){
+            while((x+1)%8 != 0 && (x+1) <64){
                 table[x+1].setAttacor(attacore);
                 x++;
             }
 
         } else if ((x+1)%8 == 0) {
-            while((x-1)%8 != 0){
+            while((x-1)%8 != 0 && (x-1)>=0 ){
                 table[x-1].setAttacor(attacore);
                 x-- ;
             }
@@ -152,4 +153,28 @@ public class Chromosome {
             }
         }
     }
+
+    public void display(){
+        String color;
+        for (int i = 0; i < 64; i++) {
+            if (i%8 == 0){
+                System.out.print("\n");
+            }
+
+            switch (table[i].getCell()) {
+                case 'Q': color = "\u001B[35m"; break;
+                case 'R': color = "\u001B[34m"; break;
+                case 'B': color = "\u001B[32m"; break;
+                case 'K': color = "\u001B[31m"; break;
+                case 'E': color = "\u001B[39m"; break;
+                default: color = "\u001B[37m"; break;
+            }
+            System.out.print( color+table[i].getCell() + " ");
+        }
+    }
+
+    public Cell[] getTable(){
+        return table;
+    }
+
 }

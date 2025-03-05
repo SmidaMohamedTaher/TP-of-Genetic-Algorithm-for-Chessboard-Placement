@@ -1,6 +1,9 @@
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!");
+        Chromosome chromosome = new Chromosome(4,2,2,2);
+        chromosome.display();
+
+
     }
 }
