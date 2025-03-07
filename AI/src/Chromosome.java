@@ -3,6 +3,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Chromosome {
 
     Cell []table = new Cell[64];
+    int numAttacks ;
 
     public Chromosome(int numQueens,int numRooks,int numBishops,int numKings) {
         for(int i=0; i<64; i++){
@@ -15,12 +16,18 @@ public class Chromosome {
         position(numBishops,'B');
         position(numKings,'K');
 
+        calculNumAttacks();
+
     }
 
     public Chromosome (){
         for(int i=0; i<64; i++){
             table[i] = new Cell();
         }
+    }
+
+    public Chromosome(Cell []t){
+        this.table = t ;
     }
 
     public void position(int num,char car){
@@ -50,6 +57,12 @@ public class Chromosome {
         }
     }
 
+    /**
+     *
+     * @param indexOfAttacore
+     * @param attacker
+     * find cell who the piece can attack its
+     */
     public void attack(int indexOfAttacore , Cell attacker){
         if (attacker.getCell() == 'Q'){
             attackUpDown(attacker,indexOfAttacore);
@@ -175,6 +188,34 @@ public class Chromosome {
 
     public Cell[] getTable(){
         return table;
+    }
+
+    public void setTable(Cell []table){
+        this.table = table;
+    }
+
+    public void calculNumAttacks(){
+        int num = 0 ;
+
+        for (int i = 0; i < 64; i++) {
+            if (table[i].getCell() != 'E'){
+                num += this.table[i].getNumAttacor();
+            }
+        }
+
+        int x = 0 ;
+
+        for (int i = 0; i < 64; i++) {
+            if (table[i].getCell() != 'E'){
+                x += this.table[i].number();
+            }
+        }
+
+        this.numAttacks = num - x/2 ;
+    }
+
+    public int getNumAttacks(){
+        return this.numAttacks;
     }
 
 }
