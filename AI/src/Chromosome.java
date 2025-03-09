@@ -187,6 +187,7 @@ public class Chromosome {
         System.out.println("\n");
         double fitnes =  (1.0/(1+this.numAttacks)) ;
         System.out.println("Number of the attacks : " + fitnes );
+        System.out.println("Number of the attacks : " + this.numAttacks);
     }
 
     public Cell[] getTable(){

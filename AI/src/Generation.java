@@ -44,18 +44,18 @@ public class Generation {
     public Generation newGeneration() {
 
         Generation newGen = new Generation();
-        Vector<Double> v = new Vector<Double>(this.num) ;
+        Vector<Double> fitness = new Vector<Double>(this.num) ;
 
 
         for (int i = 0; i < this.gen.size(); i++) {
             if (i == 0)
-            v.add( (this.gen.get(i).getNumAttacks()/this.allAttacks));
+            fitness.add( (this.gen.get(i).getNumAttacks()/this.allAttacks));
             else{
-                v.add( (this.gen.get(i).getNumAttacks()/this.allAttacks)+v.get(i-1));
+                fitness.add( (this.gen.get(i).getNumAttacks()/this.allAttacks)+fitness.get(i-1));
             }
         }
 
-        Collections.sort(v);
+        Collections.sort(fitness);
 
         //################################################/////////////
         for (int k = 0; k < this.num/2; k++)
@@ -66,8 +66,8 @@ public class Generation {
 
             for (int i = 0; i < 2; i++) {
                 r = Main.rend();
-                for (int j = 0; j < v.size(); j++) {
-                    if (r/100 <= v.get(j)) {
+                for (int j = 0; j < fitness.size(); j++) {
+                    if (r/100 <= fitness.get(j)) {
                         c[i] = this.gen.get(j);
                         break;
                     }
