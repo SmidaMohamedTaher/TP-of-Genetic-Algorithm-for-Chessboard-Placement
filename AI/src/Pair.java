@@ -28,8 +28,8 @@ public class Pair {
                 t4[i] = t1[i] ;
             }
 
-            c1 = new Chromosome(t1) ;
-            c2 = new Chromosome(t2) ;
+            c1 = new Chromosome(t3) ;
+            c2 = new Chromosome(t4) ;
 
         }else{
             c2 = cromosone1;
@@ -52,6 +52,8 @@ public class Pair {
             c2.getTable()[n2] = t ;
         }
 
+        c1.calculNumAttacks();
+        c2.calculNumAttacks();
         this.cromosone1 = c1 ;
         this.cromosone2 = c2 ;
 

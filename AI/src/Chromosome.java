@@ -184,6 +184,9 @@ public class Chromosome {
             }
             System.out.print( color+table[i].getCell() + " ");
         }
+        System.out.println("\n");
+        double fitnes =  (1.0/(1+this.numAttacks)) ;
+        System.out.println("Number of the attacks : " + fitnes );
     }
 
     public Cell[] getTable(){
@@ -214,8 +217,9 @@ public class Chromosome {
         this.numAttacks = num - x/2 ;
     }
 
-    public int getNumAttacks(){
-        return this.numAttacks;
+    public Double getNumAttacks(){
+        Double i = (double) this.numAttacks ;
+        return i;
     }
 
 }
